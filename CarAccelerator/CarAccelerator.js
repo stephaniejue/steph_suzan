@@ -45,40 +45,40 @@ $(document).ready(function () {
       increaseSpeed: function() {
         speed += 5; // increases speed by increments of 5
         if (speed >= 85) { //checks if speed is great than or equal to 85
-          $("#carspeed").text("85"); //if yes, sets speed to 85
+          return speed = 85; //if yes, sets speed to 85
         } else {
-          $("#carspeed").text(speed); //otherwise outputs speed
+          return speed; //otherwise outputs speed
         }
         console.log("increaseSpeed: " + speed);
       },
       decreaseSpeed: function() {
         speed -= 5; //decreases speed by increments of 5
         if (speed < 0) { //checks if speed is below 8
-          speed = 0; //if yes, sets speed to 0
+          return speed = 0; //if yes, sets speed to 0
         } else {
-          $("#carspeed").text(speed); //otherwise outputs speed
+          return speed; //otherwise outputs speed
         }
       },
       maxAccel: function() {
         while (speed < 70) { //while loop
           speed += 5; //increases speed by increments of 5 while speed is below 70
         }
-        $("#carspeed").text(speed); //outputs speed
+        return speed; //outputs speed
       },
       maxBrake: function() {
         while (speed > 0) { //while loop
           speed -= 5; //decreases speed by increments of 5 while speed is above 0
         }
-        $("#carspeed").text(speed); //outputs speed
+        return speed; //outputs speed
       },
       //story 4
       brakesFail: function() {
         var decelerator = Math.floor((Math.random() * speed) + 1); //sets random variable for decelerator
         speed -= decelerator; //sets speed to speed reduced by decelerator
         if (speed < 0) { //if speed goes below 0
-          speed = 0; //sets the speed to 0
+          return speed = 0; //sets the speed to 0
         } else {
-          $("#carspeed").text(speed); //otherwise output speed
+          return speed; //otherwise output speed
         }
       },
     };
@@ -95,25 +95,31 @@ $(document).ready(function () {
 
   function speedUp() {
     var myCar = createCar();
+    console.log("MyCar.getSpeed:" + myCar.getSpeed());
     console.log("MyCar.IncreaseSpeed:" + myCar.increaseSpeed());
+    $("#carspeed").text(myCar.getSpeed());
   }
   function speedDown() {
     var myCar = createCar();
-    // console.log("My Car's Decreased Speed:" + myCar.decreaseSpeed());
+    console.log("My Car's Decreased Speed:" + myCar.decreaseSpeed());
+    $("#carspeed").text(myCar.getSpeed());
   }
 
   function maxAccel() {
     var myCar = createCar();
-    // console.log("My Car's Max Speed:" + myCar.maxAccel());
+    console.log("My Car's Max Speed:" + myCar.maxAccel());
+    $("#carspeed").text(myCar.getSpeed());
   }
 
   function maxBrake() {
     var myCar = createCar();
-    // console.log("My Car's Max Brake:" + myCar.maxBrake());
+    console.log("My Car's Max Brake:" + myCar.maxBrake());
+    $("#carspeed").text(myCar.getSpeed());
   }
   function brakesFail() {
     var myCar = createCar();
-    // console.log("My Car's Failed brakes:" + myCar.brakesFail());
+    console.log("My Car's Failed brakes:" + myCar.brakesFail());
+    $("#carspeed").text(myCar.getSpeed());
   }
 
 
