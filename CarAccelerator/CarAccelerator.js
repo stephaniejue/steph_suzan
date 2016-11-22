@@ -2,7 +2,26 @@ $(document).ready(function () {
 
   $("#submit").on("click", function () {
     $("div").eq(0).hide();
-    createCar();
+    createObject();
+  });
+  $("#increasespeed").on("click", function () {
+    speedUp();
+  });
+
+  $("#decreasespeed").on("click", function () {
+    speedDown();
+  });
+
+  $("#maxaccel").on("click", function () {
+    maxAccel();
+  });
+
+  $("#maxbrake").on("click", function () {
+    maxBrake();
+  });
+
+  $("#brakesfail").on("click", function () {
+    brakesFail();
   });
 
   var speed = 0;
@@ -12,64 +31,90 @@ $(document).ready(function () {
     var newMake = $("#make").val();
     var newModel = $("#model").val();
 
-    console.log("year: " + newYear);
-    console.log("make: " + newMake);
-    console.log("model: " + newModel);
-
     return {
+      make: newMake,
+      model: newModel,
+      year: newYear,
       getInfo: function() {
-        return "Car Info: " + newYear + " " + newMake + " " + newModel;
+        return "You're driving a: " + this.year + " " + this.make + " " + this.model;
       },
-
       getSpeed: function() {
+        console.log("Get Speed: " + speed);
         return speed;
       },
-
-      accelerate: function(x) {
-        if (myCar.getSpeed() > 75) {
-          x = 85-myCar.getSpeed();
+      increaseSpeed: function() {
+        speed += 5; // increases speed by increments of 5
+        if (speed >= 85) { //checks if speed is great than or equal to 85
+          $("#carspeed").text("85"); //if yes, sets speed to 85
+        } else {
+          $("#carspeed").text(speed); //otherwise outputs speed
         }
-        speed += x;
+        console.log("increaseSpeed: " + speed);
       },
-
-      brake: function() {
-        speed -= Math.floor(Math.random() * (speed / 2));
-
-        if (speed < 7) {
-          speed = 0;
+      decreaseSpeed: function() {
+        speed -= 5; //decreases speed by increments of 5
+        if (speed < 0) { //checks if speed is below 8
+          speed = 0; //if yes, sets speed to 0
+        } else {
+          $("#carspeed").text(speed); //otherwise outputs speed
         }
-      }
+      },
+      maxAccel: function() {
+        while (speed < 70) { //while loop
+          speed += 5; //increases speed by increments of 5 while speed is below 70
+        }
+        $("#carspeed").text(speed); //outputs speed
+      },
+      maxBrake: function() {
+        while (speed > 0) { //while loop
+          speed -= 5; //decreases speed by increments of 5 while speed is above 0
+        }
+        $("#carspeed").text(speed); //outputs speed
+      },
+      //story 4
+      brakesFail: function() {
+        var decelerator = Math.floor((Math.random() * speed) + 1); //sets random variable for decelerator
+        speed -= decelerator; //sets speed to speed reduced by decelerator
+        if (speed < 0) { //if speed goes below 0
+          speed = 0; //sets the speed to 0
+        } else {
+          $("#carspeed").text(speed); //otherwise output speed
+        }
+      },
     };
   }
 
-function createObject {
-  var myCar = createCar(newYear,newMake,newModel);
-}
-  //
-  // console.log("my car: " + this.myCar);
-  // $("#carinfo").text(myCar.getInfo());
+  function createObject() {
+    var myCar = createCar();
+    console.log("Set speed: " + speed);
+    console.log("My Car:" + myCar);
+    console.log("My Car Make:" + myCar.make);
+    console.log("My Car's Info:" + myCar.getInfo());
+    $("#carinfo").text(myCar.getInfo());
+  }
 
+  function speedUp() {
+    var myCar = createCar();
+    console.log("MyCar.IncreaseSpeed:" + myCar.increaseSpeed());
+  }
+  function speedDown() {
+    var myCar = createCar();
+    // console.log("My Car's Decreased Speed:" + myCar.decreaseSpeed());
+  }
 
-  // var carString = myCar.getInfo();
-  // // myCar.getInfo();
-  //
-  // console.log(carString);
-  // document.getElementById("outputText").innerHTML = "Youre driving a " +
-  //
-  //
-  //
-  // function getInput() {
-  //
-  //   var input = document.getElementById("inputField").value;
-  //
-  //   if (input === "accelerate") { myCar.accelerate(80); }
-  //   if (input === "brake" ) { myCar.brake() }
-  //
-  //   document.getElementById("outputText").innerHTML = "Your speed is " + speed;
-  // }
+  function maxAccel() {
+    var myCar = createCar();
+    // console.log("My Car's Max Speed:" + myCar.maxAccel());
+  }
 
-
-
+  function maxBrake() {
+    var myCar = createCar();
+    // console.log("My Car's Max Brake:" + myCar.maxBrake());
+  }
+  function brakesFail() {
+    var myCar = createCar();
+    // console.log("My Car's Failed brakes:" + myCar.brakesFail());
+  }
 
 
 });
